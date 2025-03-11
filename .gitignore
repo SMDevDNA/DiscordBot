@@ -3,3 +3,5 @@ node_modules/
 GuildDataWorker.lua
 
 .env
+
+UpdateGuildData.exe

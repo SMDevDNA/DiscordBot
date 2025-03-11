@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const { readFileSync } = require('fs');
 const { Client, GatewayIntentBits } = require('discord.js');
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const token = process.env.DISCORD_TOKEN;
 
@@ -13,6 +15,11 @@ const client = new Client({
         GatewayIntentBits.MessageContent
     ]
 });
+
+const app = express();
+const port = process.env.PORT || 3000;
+app.use(bodyParser.json({ limit: '50mb' }));  // Збільшуємо ліміт для JSON
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Чтение Lua файла как строки
 function readLuaFile(path) {
@@ -84,6 +91,27 @@ client.on('messageCreate', async (message) => {
             message.reply(`Пользователь ${username} не найден.`);
         }
     }
+});
+
+app.use(express.json());
+
+app.post('/updateLuaData', (req, res) => {
+    const { data } = req.body; // Отримуємо дані з тіла запиту
+    if (!data) {
+        return res.status(400).send({ error: 'Не указаны данные для записи.' });
+    }
+
+    // Записуємо отримані дані в змінну luaData
+    luaData = data;
+
+    console.log('LuaData обновлено:', luaData);
+
+    // Повертаємо успішну відповідь
+    return res.status(200).send({ message: 'Данные успешно обновлены.' });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
 
 client.login(token);
