@@ -22,16 +22,16 @@ app.use(bodyParser.json({ limit: '50mb' }));  // Збільшуємо ліміт
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Чтение Lua файла как строки
-function readLuaFile(path) {
+/*function readLuaFile(path) {
     const content = readFileSync(path, 'utf8');
     return content;
-}
+}*/
 
 let luaData;
 
 client.once('ready', () => {
     console.log('Bot is online!');
-    luaData = readLuaFile('./GuildDataWorker.lua');
+    luaData = 'Name = @LiRikaFLS';
 });
 
 client.on('error', console.error);
