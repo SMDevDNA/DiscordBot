@@ -1,0 +1,1 @@
+GuildDataWorkerVars={["Default"]={["@LiRikaFLS"]={["$AccountWide"]={["GuildMembers"]={["ALASTAR Inc"]={[1]={["Name"]="@LiRikaFLS",["Status"]=4,["Rank"]=9,}}
